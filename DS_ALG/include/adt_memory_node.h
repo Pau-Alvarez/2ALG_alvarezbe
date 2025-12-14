@@ -21,26 +21,24 @@ typedef struct memory_node_s {
 // Memory Node's API Declarations
 struct memory_node_ops_s {
   /**
- * @brief
- * @param 
- * @return 
+ * @brief Returns a reference to the data of a given node
+ * @param node The node from which to retrieve the data
+ * @return Pointer to the data of the specified node
  */
-//Returns a refernce for a given node data
   void*(*data) (MemoryNode *node); 
   /**
- * @brief 
- * @param 
- * @param 
- * @return 
+ * @brief Stores source data into a given node
+ * @param node The memory node where the data will be stored
+ * @param src Pointer to the source data to copy
+ * @param bytes Number of bytes to copy from the source
+ * @return Status code indicating success or failure (s16)
  */
- //stores src into a given node taking up the bytes param of space
   s16(*setData) (MemoryNode *node, void *src, u16 bytes);
   /**
- * @brief 
- * @param 
- * @return 
+ * @brief Returns the size of a given node
+ * @param node The memory node to query
+ * @return Size of the node in bytes (u16)
  */
- //return node size
   u16(*size) (MemoryNode *node);
 
   /**
@@ -48,114 +46,117 @@ struct memory_node_ops_s {
  * @param
  * @return 
  */
- //resets the content of a given node
   s16(*reset) (MemoryNode *node);
 
   /**
-  * @brief  
-  * @param 
-  * @return 
+* @brief Resets the content of a given node
+ * @param node The memory node to reset
+ * @return Status code indicating success or failure (s16)
   */
-  //resets both the container and content of a given node
   s16(*softReset) (MemoryNode *node);	
-  /**
- * @brief  
- * @param 
- * @return 
+ /**
+ * @brief Frees the memory container of a given node
+ * @param node The memory node whose container will be freed
+ * @return Status code indicating success or failure (s16)
  */
- //resets both the container of a given node
-  s16(*free) (MemoryNode *node);
-  /**
- * @brief 
- * @param 
- * @return 
- */
- /**/
-//resets and frees the whole node and it's content
-  s16(*softFree) (MemoryNode *node);	// free only the node (its memory, not its data)
+s16(*free)(MemoryNode *node);
 
-  /**
- * @brief 
- * @param 
- * @param 
- * @return 
- */
- //stores given value into the given node
-  s16(*memSet) (MemoryNode *node, u8 value);
-  /**
- * @brief 
- * @param 
- * @param 
- * @param 
- * @return 
- */
- //resizes node with bytes and copies src into existing node data
-  s16(*memCopy) (MemoryNode *node, void *src, u16 bytes);
-  /**
- * @brief 
- * @param 
- * @param 
- * @param 
- * @return 
- */
- //reserves new node size with existing data and bytes
- //and concats existing data with src
-  s16(*memConcat) (MemoryNode *node, void *src, u16 bytes);
-  /**
- * @brief 
- * @param 
- * @param 
- * @return 
- */
- //AND masks a node to only keep bits set as 1
-  s16(*memMask) (MemoryNode *node, u8 mask);
 /**
- * @brief 
- * @param 
- * @return 
+ * @brief Frees only the node structure without freeing its data content
+ * @param node The memory node to free
+ * @return Status code indicating success or failure (s16)
  */
- //prints node content
-  void(*print) (MemoryNode *node);
+s16(*softFree)(MemoryNode *node);
+
 /**
- * @brief 
- * @param 
- * @return 
+ * @brief Sets all bytes in the node to a given value
+ * @param node The memory node to modify
+ * @param value The byte value to set throughout the node
+ * @return Status code indicating success or failure (s16)
  */
- //returns node->data next node
-  MemoryNode* (*next)(MemoryNode* node);
-  /**
- * @brief 
- * @param 
- * @param 
- * @return 
+s16(*memSet)(MemoryNode *node, u8 value);
+
+/**
+ * @brief Resizes the node and copies source data into it
+ * @param node The memory node to resize and copy into
+ * @param src Pointer to the source data to copy
+ * @param bytes Number of bytes to copy from the source
+ * @return Status code indicating success or failure (s16)
  */
- //sets node->data next node
-  s16 (*setNext)(MemoryNode* node, MemoryNode* next);
-  /**
- * @brief 
- * @param 
- * @return 
+s16(*memCopy)(MemoryNode *node, void *src, u16 bytes);
+
+/**
+ * @brief Reserves new node size and concatenates source data to existing data
+ * @param node The memory node to expand
+ * @param src Pointer to the source data to concatenate
+ * @param bytes Number of bytes to concatenate from the source
+ * @return Status code indicating success or failure (s16)
  */
- //returns node->data prev node
-  MemoryNode* (*prev)(MemoryNode* node);
-  /**
- * @brief 
- * @param 
- * @param 
- * @return 
+s16(*memConcat)(MemoryNode *node, void *src, u16 bytes);
+
+/**
+ * @brief Applies an AND mask to the node data to keep only bits set to 1
+ * @param node The memory node to mask
+ * @param mask The bitmask to apply
+ * @return Status code indicating success or failure (s16)
  */
- //sets node->data prev node
-  s16 (*setPrev)(MemoryNode* node, MemoryNode* prev);
+s16(*memMask)(MemoryNode *node, u8 mask);
+
+/**
+ * @brief Prints the content of a node
+ * @param node The memory node to print
+ */
+void(*print)(MemoryNode *node);
+
+/**
+ * @brief Returns the next node in the linked structure
+ * @param node The current memory node
+ * @return Pointer to the next memory node
+ */
+MemoryNode* (*next)(MemoryNode* node);
+
+/**
+ * @brief Sets the next node in the linked structure
+ * @param node The current memory node
+ * @param next The node to set as next
+ * @return Status code indicating success or failure (s16)
+ */
+s16 (*setNext)(MemoryNode* node, MemoryNode* next);
+
+/**
+ * @brief Returns the previous node in the linked structure
+ * @param node The current memory node
+ * @return Pointer to the previous memory node
+ */
+MemoryNode* (*prev)(MemoryNode* node);
+
+/**
+ * @brief Sets the previous node in the linked structure
+ * @param node The current memory node
+ * @param prev The node to set as previous
+ * @return Status code indicating success or failure (s16)
+ */
+s16 (*setPrev)(MemoryNode* node, MemoryNode* prev);
 };
 
-MemoryNode* MEMNODE_create();
-s16 MEMNODE_createFromRef(MemoryNode **node);
 /**
- * @brief 
- * @param 
- * @return 
+ * @brief Creates a new memory node
+ * @return Pointer to the newly created memory node
  */
- //calls memnode_initwithoutcheck and returns an error if node == NULL
+MemoryNode* MEMNODE_create();
+
+/**
+ * @brief Creates a new memory node from a reference pointer
+ * @param node Double pointer to store the created memory node
+ * @return Status code indicating success or failure (s16)
+ */
+s16 MEMNODE_createFromRef(MemoryNode **node);
+
+/**
+ * @brief Initializes a memory node without validation checks
+ * @param node The memory node to initialize (must not be NULL)
+ * @return Status code indicating success or failure (s16)
+ */
 s16 MEMNODE_createLite(MemoryNode *node);
 
 #endif // __ADT_MEMORY_NODE_H__
