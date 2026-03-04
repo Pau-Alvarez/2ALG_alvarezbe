@@ -1,0 +1,4 @@
+﻿  adt_movable_vector.c
+D:\Perfiles\alvarezbe\Documents\Algoritmos\miau\2ALG_alvarezbe-main\DS_ALG\src\adt_movable_vector.c(23,12): warning C4211: se ha utilizado una extensión no estándar: extern se ha vuelto a definir como static
+D:\Perfiles\alvarezbe\Documents\Algoritmos\miau\2ALG_alvarezbe-main\DS_ALG\src\adt_movable_vector.c(46,15): warning C4057: "inicializando": "u16 (__cdecl *)(MHVector *)" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "s16 (__cdecl *)(MHVector *)"
+  PR04_MovableVector.vcxproj -> D:\Perfiles\alvarezbe\Documents\Algoritmos\miau\2ALG_alvarezbe-main\DS_ALG\bin\Debug\x64\PR04_MovableVector_d.exe
