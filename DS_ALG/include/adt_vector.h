@@ -1,10 +1,10 @@
 /*
- * 
+ *
  * adt_vector.h
  * Toni Barella, Ivan Sancho as Unreal Authorized Instructor (UAI).
  * Algorithms and Data Structures.
  * ESAT 2020-2021
- * 
+ *
  */
 
 #ifndef __ADT_VECTOR_H__
@@ -12,199 +12,215 @@
 
 #include "adt_memory_node.h"
 
+/**
+ * @brief Linear array based ADT with bounded capacity.
+ * @details Elements are stored sequentially in a contiguous array of
+ *          MemoryNode. The fixed slot 0 acts as the head and @p tail_
+ *          points to the first free position.
+ */
 typedef struct adt_vector_s {
-	u16 head_;
-	u16 tail_; //First free place.
-	u16 capacity_;
-	MemoryNode *storage_;
-	struct vector_ops_s *ops_;
+	u16 head_;                        /**< Always 0 for a linear vector. */
+	u16 tail_;                        /**< Index of the first free slot. */
+	u16 capacity_;                    /**< Maximum number of elements. */
+	MemoryNode *storage_;             /**< Storage of MemoryNode entries. */
+	struct vector_ops_s *ops_;        /**< Pointer to the Vector API. */
 } Vector;
 
+/**
+ * @brief Public API for the Vector ADT.
+ */
 struct vector_ops_s {
-/**
- * @brief Destroys the vector and frees all its data
- * @param vector The vector to destroy
- * @return Status code indicating success or failure (s16)
- */
-s16 (*destroy)(Vector* vector);
+	/**
+	 * @brief Releases every node of the vector and frees the vector itself.
+	 * @param vector The vector to destroy.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*destroy)(Vector* vector);
 
-/**
- * @brief Soft resets the vector's data without freeing memory
- * @param vector The vector to soft reset
- * @return Status code indicating success or failure (s16)
- */
-s16 (*softReset)(Vector* vector);
+	/**
+	 * @brief Empties the vector without freeing the data buffers.
+	 * @param vector The vector to soft reset.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if the storage is NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*softReset)(Vector* vector);
 
-/**
- * @brief Resets the vector's data
- * @param vector The vector to reset
- * @return Status code indicating success or failure (s16)
- */
-s16 (*reset)(Vector* vector);
+	/**
+	 * @brief Empties the vector freeing every data buffer.
+	 * @param vector The vector to reset.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if the storage is NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*reset)(Vector* vector);
 
-/**
- * @brief Resizes the capacity of the vector (may delete elements)
- * @param vector The vector to resize
- * @param new_size The new capacity for the vector
- * @return Status code indicating success or failure (s16)
- */
-s16 (*resize)(Vector* vector, u16 new_size);
+	/**
+	 * @brief Resizes the capacity of the vector.
+	 * @details When @p new_size is smaller than the current length the
+	 *          extra elements are released.
+	 * @param vector The vector to resize.
+	 * @param new_size The new capacity.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_ZeroSize if @p new_size is 0,
+	 *         kErrorCode_Memory on allocation failure,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*resize)(Vector* vector, u16 new_size);
 
-// State queries:
+	/**
+	 * @brief Returns the maximum number of elements the vector can hold.
+	 * @param vector The vector to query.
+	 * @return Capacity of the vector, or 0 if @p vector is NULL.
+	 */
+	u16 (*capacity)(Vector* vector);
 
-/**
- * @brief Returns the maximum number of elements the vector can store
- * @param vector The vector to query
- * @return Maximum capacity of the vector (u16)
- */
-u16 (*capacity)(Vector* vector);
+	/**
+	 * @brief Returns the current number of stored elements.
+	 * @param vector The vector to query.
+	 * @return Number of elements, or 0 if @p vector is NULL.
+	 */
+	u16 (*length)(Vector* vector);
 
-/**
- * @brief Returns the current number of elements in the vector
- * @param vector The vector to query
- * @return Current number of elements, always <= capacity (u16)
- */
-u16 (*length)(Vector* vector);
+	/**
+	 * @brief Tells whether the vector contains no elements.
+	 * @param vector The vector to query.
+	 * @return True if empty or @p vector is NULL, False otherwise.
+	 */
+	boolean (*isEmpty)(Vector* vector);
 
-/**
- * @brief Checks if the vector is empty
- * @param vector The vector to check
- * @return True if the vector is empty, false otherwise
- */
-boolean (*isEmpty)(Vector* vector);
+	/**
+	 * @brief Tells whether the vector has reached its capacity.
+	 * @param vector The vector to query.
+	 * @return True if full, False otherwise or if @p vector is NULL.
+	 */
+	boolean (*isFull)(Vector* vector);
 
-/**
- * @brief Checks if the vector is full
- * @param vector The vector to check
- * @return True if the vector is full, false otherwise
- */
-boolean (*isFull)(Vector* vector);
+	/**
+	 * @brief Returns a reference to the data stored at position 0.
+	 * @param vector The vector to query.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the data, or NULL when the vector is empty.
+	 */
+	void* (*first)(Vector* vector, u16* size);
 
-// Data queries:
+	/**
+	 * @brief Returns a reference to the data stored at the last position.
+	 * @param vector The vector to query.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the data, or NULL when the vector is empty.
+	 */
+	void* (*last)(Vector* vector, u16* size);
 
-/**
- * @brief Returns a reference to the first element of the vector
- * @param vector The vector to query
- * @param size Pointer to store the size of the element
- * @return Pointer to the first element's data
- */
-void* (*first)(Vector* vector, u16* size);
+	/**
+	 * @brief Returns a reference to the data stored at @p position.
+	 * @param vector The vector to query.
+	 * @param size Output parameter that receives the size of the element.
+	 * @param position Zero based index of the element to read.
+	 * @return Pointer to the data, or NULL on invalid input.
+	 */
+	void* (*at)(Vector* vector, u16* size, u16 position);
 
-/**
- * @brief Returns a reference to the last element of the vector
- * @param vector The vector to query
- * @param size Pointer to store the size of the element
- * @return Pointer to the last element's data
- */
-void* (*last)(Vector* vector, u16* size);
+	/**
+	 * @brief Inserts an element at the first position of the vector.
+	 * @param vector The vector to modify.
+	 * @param data Pointer to the data to insert.
+	 * @param bytes Size in bytes of @p data.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if @p data is NULL,
+	 *         kErrorCode_ZeroSize if @p bytes is 0,
+	 *         kErrorCode_IsFull if the vector is full,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*insertFirst)(Vector* vector, void *data, u16 bytes);
 
-/**
- * @brief Returns a reference to the element at a given position
- * @param vector The vector to query
- * @param size Pointer to store the size of the element
- * @param position The index of the element to retrieve
- * @return Pointer to the element's data at the specified position
- */
-void* (*at)(Vector* vector, u16* size, u16 position);
+	/**
+	 * @brief Inserts an element at the last position of the vector.
+	 * @param vector The vector to modify.
+	 * @param data Pointer to the data to insert.
+	 * @param bytes Size in bytes of @p data.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if @p data is NULL,
+	 *         kErrorCode_ZeroSize if @p bytes is 0,
+	 *         kErrorCode_IsFull if the vector is full,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*insertLast)(Vector* vector, void *data, u16 bytes);
 
-// Insertion:
+	/**
+	 * @brief Inserts an element at a given position.
+	 * @details Positions beyond the current length are clamped to the tail.
+	 * @param vector The vector to modify.
+	 * @param data Pointer to the data to insert.
+	 * @param bytes Size in bytes of @p data.
+	 * @param position Zero based index where the element will be placed.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if @p data is NULL,
+	 *         kErrorCode_ZeroSize if @p bytes is 0,
+	 *         kErrorCode_IsFull if the vector is full,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*insertAt)(Vector* vector, void *data, u16 bytes, u16 position);
 
-/**
- * @brief Inserts an element at the first position of the vector
- * @param vector The vector to modify
- * @param data Pointer to the data to insert
- * @param bytes Number of bytes to insert
- * @return Status code indicating success or failure (s16)
- */
-s16 (*insertFirst)(Vector* vector, void *data, u16 bytes);
+	/**
+	 * @brief Extracts and removes the first element of the vector.
+	 * @param vector The vector to modify.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the extracted data, or NULL on invalid input.
+	 */
+	void* (*extractFirst)(Vector* vector, u16* size);
 
-/**
- * @brief Inserts an element at the last position of the vector
- * @param vector The vector to modify
- * @param data Pointer to the data to insert
- * @param bytes Number of bytes to insert
- * @return Status code indicating success or failure (s16)
- */
-s16 (*insertLast)(Vector* vector, void *data, u16 bytes);
+	/**
+	 * @brief Extracts and removes the last element of the vector.
+	 * @param vector The vector to modify.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the extracted data, or NULL on invalid input.
+	 */
+	void* (*extractLast)(Vector* vector, u16* size);
 
-/**
- * @brief Inserts an element at a given position in the vector
- * @param vector The vector to modify
- * @param data Pointer to the data to insert
- * @param bytes Number of bytes to insert
- * @param position The index where the element will be inserted
- * @return Status code indicating success or failure (s16)
- */
-s16 (*insertAt)(Vector* vector, void *data, u16 bytes, u16 position);
+	/**
+	 * @brief Extracts and removes the element at @p position.
+	 * @param vector The vector to modify.
+	 * @param size Output parameter that receives the size of the element.
+	 * @param position Zero based index of the element to extract.
+	 * @return Pointer to the extracted data, or NULL on invalid input.
+	 */
+	void* (*extractAt)(Vector* vector, u16* size, u16 position);
 
-// Extraction:
+	/**
+	 * @brief Concatenates @p vector_src at the tail of @p vector.
+	 * @details The destination grows its capacity when needed. Data in the
+	 *          source is deep copied so both vectors stay independent.
+	 * @param vector Destination vector.
+	 * @param vector_src Source vector.
+	 * @return kErrorCode_Null if any vector is NULL,
+	 *         kErrorCode_Memory on allocation failure,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*concat)(Vector* vector, Vector *vector_src);
 
-/**
- * @brief Extracts and removes the first element of the vector
- * @param vector The vector to modify
- * @param size Pointer to store the size of the extracted element
- * @return Pointer to the extracted element's data
- */
-void* (*extractFirst)(Vector* vector, u16* size);
+	/**
+	 * @brief Calls @p callback for every stored element.
+	 * @param vector The vector to traverse.
+	 * @param callback Function applied to each MemoryNode.
+	 * @return kErrorCode_Null if @p vector or @p callback are NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*traverse)(Vector* vector, void (*callback)(MemoryNode *));
 
-/**
- * @brief Extracts and removes the last element of the vector
- * @param vector The vector to modify
- * @param size Pointer to store the size of the extracted element
- * @return Pointer to the extracted element's data
- */
-void* (*extractLast)(Vector* vector, u16* size);
-
-/**
- * @brief Extracts and removes the element at a given position
- * @param vector The vector to modify
- * @param size Pointer to store the size of the extracted element
- * @param position The index of the element to extract
- * @return Pointer to the extracted element's data
- */
-void* (*extractAt)(Vector* vector, u16* size, u16 position);
-
-// Miscellaneous:
-
-/**
- * @brief Concatenates two vectors
- * @param vector The destination vector
- * @param vector_src The source vector to concatenate
- * @return Status code indicating success or failure (s16)
- */
-s16 (*concat)(Vector* vector, Vector *vector_src);
-
-/**
- * @brief Traverses all elements of the vector and applies a callback function
- * @param vector The vector to traverse
- * @param callback Function to call for each element
- * @return Status code indicating success or failure (s16)
- */
-s16 (*traverse)(Vector* vector, void (*callback)(MemoryNode *));
-
-/**
- * @brief Prints the features and content of the vector
- * @param vector The vector to print
- */
-void (*print)(Vector* vector);
+	/**
+	 * @brief Prints the state of the vector to standard output.
+	 * @param vector The vector to print.
+	 */
+	void (*print)(Vector* vector);
 };
 
 /**
- * @brief Creates a new vector with the specified capacity
- * @param capacity The maximum number of elements the vector can store
- * @return Pointer to the newly created vector
+ * @brief Creates a new vector with the specified capacity.
+ * @param capacity Maximum number of elements the vector will hold.
+ * @return Pointer to the new vector, or NULL on invalid input or failure.
  */
 Vector* VECTOR_create(u16 capacity);
 
 #endif //__ADT_VECTOR_H__
-
-
-
-
-
-
-
-
-
-
-

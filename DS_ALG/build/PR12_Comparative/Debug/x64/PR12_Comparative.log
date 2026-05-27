@@ -1,0 +1,8 @@
+﻿  adt_dllist.c
+  adt_list.c
+  adt_memory_node.c
+  adt_vector.c
+  comparative.c
+  Generando código...
+EDK_MemoryManager_Windows_d.lib(edk_memory_manager.obj) : warning LNK4099: no se encontró PDB 'EDK_MemoryManager_Windows_d.pdb' con 'EDK_MemoryManager_Windows_d.lib(edk_memory_manager.obj)' o en 'C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\bin\Debug\x64\EDK_MemoryManager_Windows_d.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+  PR12_Comparative.vcxproj -> C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\bin\Debug\x64\PR12_Comparative_d.exe

@@ -1,11 +1,11 @@
 /*
  * Ivan Sancho as Unreal Authorized Instructor (UAI), 2025.
  *
- * Memory Node source code.
+ * Vector source code.
  * Algorithms and Data Structures.
  *
  * Student:
- *   Pau Álvarez Belenguer
+ *   Pau Alvarez Belenguer
  *
  */
 
@@ -47,7 +47,6 @@ static s16 VECTOR_traverse(Vector* vector, void (*callback)(MemoryNode*));
 
 static void VECTOR_print(Vector* vector);
 
-Vector* VECTOR_create(u16 capacity);
 
 struct vector_ops_s vector_ops = {	.destroy = VECTOR_destroy,
 									.softReset = VECTOR_softReset,
@@ -113,13 +112,9 @@ s16 VECTOR_destroy(Vector* vector) {
 	}
 
 	vector->storage_ = NULL;
-
 	vector->ops_ = NULL;
-
 	vector->head_ = 0;
-
 	vector->tail_ = 0;
-
 	vector->capacity_ = 0;
 
 	MM->free(vector);
@@ -131,7 +126,6 @@ s16 VECTOR_softReset(Vector* vector){
 	if (NULL == vector) {
 		return kErrorCode_Null;
 	}
-
 	if (NULL == vector->storage_) {
 		return kErrorCode_NullData;
 	}
@@ -189,7 +183,6 @@ s16 VECTOR_resize(Vector* vector, u16 new_size){
 		previous_elem = new_size;
 	}
 
-
 	MemoryNode* fresh_storage = (MemoryNode*)MM->malloc(sizeof(MemoryNode) * new_size);
 	if (NULL == fresh_storage) {
 		return kErrorCode_Memory;
@@ -199,14 +192,10 @@ s16 VECTOR_resize(Vector* vector, u16 new_size){
 		MEMNODE_createLite(&fresh_storage[position]);
 	}
 
-
 	MemoryNode* source_storage = vector->storage_;
 	for (u16 i = 0; i < previous_elem; ++i) {
 		fresh_storage[i].data_ = source_storage[i].data_;
 		fresh_storage[i].size_ = source_storage[i].size_;
-		fresh_storage[i].ops_ = source_storage[i].ops_;
-		fresh_storage[i].next_ = source_storage[i].next_;
-		fresh_storage[i].prev_ = source_storage[i].prev_;
 	}
 
 	MM->free(source_storage);
@@ -297,10 +286,12 @@ s16 VECTOR_insertFirst(Vector* vector, void* data, u16 bytes){
 	}
 
 	for (u16 i = vector->tail_; i > 0; --i) {
-		vector->storage_[i] = vector->storage_[i - 1];
+		vector->storage_[i].data_ = vector->storage_[i - 1].data_;
+		vector->storage_[i].size_ = vector->storage_[i - 1].size_;
 	}
 
-	vector->storage_[0].ops_->setData(&vector->storage_[0], data, bytes);
+	vector->storage_[0].data_ = data;
+	vector->storage_[0].size_ = bytes;
 	vector->tail_++;
 
 	return kErrorCode_Ok;
@@ -320,8 +311,8 @@ s16 VECTOR_insertLast(Vector* vector, void* data, u16 bytes){
 		return kErrorCode_IsFull;
 	}
 
-	vector->storage_[vector->tail_].ops_->setData(
-		&vector->storage_[vector->tail_], data, bytes);
+	vector->storage_[vector->tail_].data_ = data;
+	vector->storage_[vector->tail_].size_ = bytes;
 	vector->tail_++;
 
 	return kErrorCode_Ok;
@@ -350,11 +341,12 @@ s16 VECTOR_insertAt(Vector* vector, void* data, u16 bytes, u16 position){
 	}
 
 	for (u16 i = vector->tail_; i > position; --i) {
-		vector->storage_[i] = vector->storage_[i - 1];
+		vector->storage_[i].data_ = vector->storage_[i - 1].data_;
+		vector->storage_[i].size_ = vector->storage_[i - 1].size_;
 	}
 
-	vector->storage_[position].ops_->setData(
-		&vector->storage_[position], data, bytes);
+	vector->storage_[position].data_ = data;
+	vector->storage_[position].size_ = bytes;
 	vector->tail_++;
 
 	return kErrorCode_Ok;
@@ -369,15 +361,17 @@ void* VECTOR_extractFirst(Vector* vector, u16* size){
 		return NULL;
 	}
 
-	MemoryNode* first_node = &vector->storage_[0];
-	void* extracted_data = first_node->data_;
-	*size = first_node->size_;
+	void* extracted_data = vector->storage_[0].data_;
+	*size = vector->storage_[0].size_;
 
-	for (u16 i = 0; i < vector->tail_ - 1; i++) {
-		vector->storage_[i] = vector->storage_[i + 1];
+	for (u16 i = 0; i < vector->tail_ - 1; ++i) {
+		vector->storage_[i].data_ = vector->storage_[i + 1].data_;
+		vector->storage_[i].size_ = vector->storage_[i + 1].size_;
 	}
 
 	vector->tail_--;
+	vector->storage_[vector->tail_].data_ = NULL;
+	vector->storage_[vector->tail_].size_ = 0;
 
 	return extracted_data;
 }
@@ -395,9 +389,7 @@ void* VECTOR_extractLast(Vector* vector, u16* size){
 	*size = last_node->size_;
 
 	vector->tail_--;
-
 	vector->storage_[vector->tail_].data_ = NULL;
-
 	vector->storage_[vector->tail_].size_ = 0;
 
 	return extracted_data;
@@ -427,11 +419,11 @@ void* VECTOR_extractAt(Vector* vector, u16* size, u16 position){
 	*size = target_node->size_;
 
 	for (u16 i = position; i < vector->tail_ - 1; ++i) {
-		vector->storage_[i] = vector->storage_[i + 1];
+		vector->storage_[i].data_ = vector->storage_[i + 1].data_;
+		vector->storage_[i].size_ = vector->storage_[i + 1].size_;
 	}
 
 	vector->tail_--;
-
 	vector->storage_[vector->tail_].data_ = NULL;
 	vector->storage_[vector->tail_].size_ = 0;
 
@@ -451,8 +443,7 @@ s16 VECTOR_concat(Vector* vector, Vector* vector_src){
 
 	u16 current_element_count = vector->tail_;
 	u16 total_elements_after_concat = current_element_count + source_element_count;
-	u16 available_space = vector->capacity_;
-	boolean needs_expansion = (total_elements_after_concat > available_space);
+	boolean needs_expansion = (total_elements_after_concat > vector->capacity_);
 
 	if (needs_expansion) {
 		u16 expanded_capacity = vector->capacity_ + vector_src->capacity_;
@@ -493,20 +484,9 @@ s16 VECTOR_traverse(Vector* vector, void (*callback)(MemoryNode*)){
 	if (NULL == callback) {
 		return kErrorCode_Null;
 	}
-	u16 first_element = vector->head_;
-	u16 last_element = vector->tail_;
-	u16 total_iterations = last_element - first_element;
 
-	if (0 == total_iterations) {
-		return kErrorCode_Ok;
-	}
-
-	for (u16 current_position = first_element; current_position < last_element; ++current_position) {
-		MemoryNode* current_node = &vector->storage_[current_position];
-
-		callback(current_node);
-
-		printf("\n");
+	for (u16 current_position = vector->head_; current_position < vector->tail_; ++current_position) {
+		callback(&vector->storage_[current_position]);
 	}
 
 	return kErrorCode_Ok;
@@ -527,12 +507,11 @@ void VECTOR_print(Vector* vector){
 
 	if (NULL == vector->storage_) {
 		printf("[Vector Info] Storage Address: NULL\n");
-	}
-	else {
-		printf("[Vector Info] Storage Address: %p\n", (void*)vector->storage_);
+		return;
 	}
 
-	// MEJORA: Imprimir cada nodo del storage usado
+	printf("[Vector Info] Storage Address: %p\n", (void*)vector->storage_);
+
 	for (u16 idx = 0; idx < vector->tail_; idx++) {
 		printf("    [Vector Info] Storage #%d\n", idx);
 		printf("        [Node Info] Address: %p\n", (void*)&vector->storage_[idx]);
@@ -554,23 +533,5 @@ void VECTOR_print(Vector* vector){
 			}
 			printf("\n");
 		}
-
-		if (NULL == vector->storage_[idx].next_) {
-			printf("        [Node Info] Next Address: NULL\n");
-		}
-		else {
-			printf("        [Node Info] Next Address: %p\n",
-				(void*)vector->storage_[idx].next_);
-		}
-
-		if (NULL == vector->storage_[idx].prev_) {
-			printf("        [Node Info] Prev Address: NULL\n");
-		}
-		else {
-			printf("        [Node Info] Prev Address: %p\n",
-				(void*)vector->storage_[idx].prev_);
-		}
 	}
 }
-
-

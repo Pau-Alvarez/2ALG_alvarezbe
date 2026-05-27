@@ -1,4 +1,4 @@
---
+ --
 -- premake_config.lua
 --
 -- Premake solution to build the EDK STD projects.
@@ -17,14 +17,14 @@ PROJECT_NAMES = {
   "PR03_CircularVector",
   "PR04_MovableVector",
   "PR05_List",
-  --"PR06_DLList",
+  "PR06_DLList",
   "PR07_CircularList",
-  --"PR08_CircularDLList",
-  --"PR09_Stack",
-  --"PR10_Queue",
+  "PR08_CircularDLList",
+  "PR09_Stack",
+  "PR10_Queue",
   --"PR11_Logger",
-  --"PR12_Comparative",
-  --"PR13_SortingAlgorithms",
+  "PR12_Comparative",
+  "PR13_SortingAlgorithms",
 }
 
 -- Solution workspace declaration:
@@ -153,8 +153,8 @@ project "PR02_Vector"
   files {
     path.join(PROJ_DIR, "include/adt_memory_node.h"),
     path.join(PROJ_DIR, "src/adt_memory_node.c"),
-    path.join(PROJ_DIR, "include/adt_movable_vector.h"),
-    path.join(PROJ_DIR, "src/adt_movable_vector.c"),
+    path.join(PROJ_DIR, "include/adt_mhvector.h"),
+    path.join(PROJ_DIR, "src/adt_mhvector.c"),
     path.join(PROJ_DIR, "tests/test_mh_vector.c"),
   }
 
@@ -167,6 +167,15 @@ project "PR02_Vector"
     path.join(PROJ_DIR, "tests/test_list.c"),
   }
 
+  project "PR06_DLList"
+  files {
+    path.join(PROJ_DIR, "include/adt_memory_node.h"),
+    path.join(PROJ_DIR, "src/adt_memory_node.c"),
+    path.join(PROJ_DIR, "include/adt_dllist.h"),
+    path.join(PROJ_DIR, "src/adt_dllist.c"),
+    path.join(PROJ_DIR, "tests/test_dllist.c"),
+  }
+
   project "PR07_CircularList"
   files {
     path.join(PROJ_DIR, "include/adt_memory_node.h"),
@@ -174,4 +183,51 @@ project "PR02_Vector"
     path.join(PROJ_DIR, "include/adt_circular_list.h"),
     path.join(PROJ_DIR, "src/adt_circular_list.c"),
     path.join(PROJ_DIR, "tests/test_circular_list.c"),
+  }
+
+  project "PR08_CircularDLList"
+  files {
+    path.join(PROJ_DIR, "include/adt_memory_node.h"),
+    path.join(PROJ_DIR, "src/adt_memory_node.c"),
+    path.join(PROJ_DIR, "include/adt_circular_dllist.h"),
+    path.join(PROJ_DIR, "src/adt_circular_dllist.c"),
+    path.join(PROJ_DIR, "tests/test_circular_dllist.c"),
+  }
+
+      project "PR09_Stack"
+  files {
+    path.join(PROJ_DIR, "include/adt_memory_node.h"),
+    path.join(PROJ_DIR, "src/adt_memory_node.c"),
+    path.join(PROJ_DIR, "include/adt_stack.h"),
+    path.join(PROJ_DIR, "src/adt_stack.c"),
+    path.join(PROJ_DIR, "tests/test_stack.c"),
+  }
+
+  project "PR10_Queue"
+  files {
+    path.join(PROJ_DIR, "include/adt_memory_node.h"),
+    path.join(PROJ_DIR, "src/adt_memory_node.c"),
+    path.join(PROJ_DIR, "include/adt_queue.h"),
+    path.join(PROJ_DIR, "src/adt_queue.c"),
+    path.join(PROJ_DIR, "tests/test_queue.c"),
+  }
+
+  project "PR12_Comparative"
+  files {
+    path.join(PROJ_DIR, "include/adt_memory_node.h"),
+    path.join(PROJ_DIR, "src/adt_memory_node.c"),
+    path.join(PROJ_DIR, "include/adt_vector.h"),
+    path.join(PROJ_DIR, "src/adt_vector.c"),
+    path.join(PROJ_DIR, "include/adt_list.h"),
+    path.join(PROJ_DIR, "src/adt_list.c"),
+    path.join(PROJ_DIR, "include/adt_dllist.h"),
+    path.join(PROJ_DIR, "src/adt_dllist.c"),
+    path.join(PROJ_DIR, "src/comparative.c"),
+  }
+
+  project "PR13_SortingAlgorithms"
+  files {
+    path.join(PROJ_DIR, "include/algo_quicksort.h"),
+    path.join(PROJ_DIR, "src/algo_quicksort.c"),
+    path.join(PROJ_DIR, "src/sorting_main.c"),
   }

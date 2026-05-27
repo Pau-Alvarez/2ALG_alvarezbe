@@ -14,7 +14,7 @@
 #include <assert.h>
 #include <math.h>
 
-#include "adt_movable_vector.h"
+#include "adt_mhvector.h"
 #include "common_def.h"
 #include "EDK_MemoryManager/edk_memory_manager.h"
 

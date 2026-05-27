@@ -1,11 +1,11 @@
 /*
  * Ivan Sancho as Unreal Authorized Instructor (UAI), 2025.
  *
- * Memory Node source code.
+ * List source code.
  * Algorithms and Data Structures.
  *
  * Student:
- *   Pau Álvarez Belenguer
+ *   Pau Alvarez Belenguer
  *
  */
 
@@ -14,276 +14,276 @@
 #include <string.h>
 
 #include "common_def.h"
-#include "adt_vector.h"
+#include "adt_list.h"
 
 #include "EDK_MemoryManager/edk_memory_manager.h"
 
-//Vector forward declarations
+//List forward declarations
 
-static s16 VECTOR_destroy(Vector* vector);
-static s16 VECTOR_softReset(Vector* vector);
-static s16 VECTOR_reset(Vector* vector);
-static s16 VECTOR_resize(Vector* vector, u16 new_size);
+static s16 LIST_destroy(List* list);
+static s16 LIST_softReset(List* list);
+static s16 LIST_reset(List* list);
+static s16 LIST_resize(List* list, u16 new_size);
 
-static u16 VECTOR_capacity(Vector* vector);
-static u16 VECTOR_length(Vector* vector);
-static boolean VECTOR_isEmpty(Vector* vector);
-static boolean VECTOR_isFull(Vector* vector);
+static u16 LIST_capacity(List* list);
+static u16 LIST_length(List* list);
+static boolean LIST_isEmpty(List* list);
+static boolean LIST_isFull(List* list);
 
-static void* VECTOR_first(Vector* vector, u16* size);
-static void* VECTOR_last(Vector* vector, u16* size);
-static void* VECTOR_at(Vector* vector, u16* size, u16 position);
+static void* LIST_first(List* list, u16* size);
+static void* LIST_last(List* list, u16* size);
+static void* LIST_at(List* list, u16* size, u16 position);
 
-static s16 VECTOR_insertFirst(Vector* vector, void *data, u16 bytes);
-static s16 VECTOR_insertLast(Vector* vector, void* data, u16 bytes);
-static s16 VECTOR_insertAt(Vector* vector, void* data, u16 bytes, u16 position);
+static s16 LIST_insertFirst(List* list, void* data, u16 bytes);
+static s16 LIST_insertLast(List* list, void* data, u16 bytes);
+static s16 LIST_insertAt(List* list, void* data, u16 bytes, u16 position);
 
-static void* VECTOR_extractFirst(Vector* vector, u16* size);
-static void* VECTOR_extractLast(Vector* vector, u16* size);
-static void* VECTOR_extractAt(Vector* vector, u16* size, u16 position);
+static void* LIST_extractFirst(List* list, u16* size);
+static void* LIST_extractLast(List* list, u16* size);
+static void* LIST_extractAt(List* list, u16* size, u16 position);
 
-static s16 VECTOR_concat(Vector* vector, Vector *vector_src);
-static s16 VECTOR_traverse(Vector* vector, void (*callback)(MemoryNode*));
+static s16 LIST_concat(List* list, List* list_src);
+static s16 LIST_traverse(List* list, void (*callback)(MemoryNode*));
 
-static void VECTOR_print(Vector* vector);
-
-Vector* VECTOR_create(u16 capacity);
-
-struct vector_ops_s vector_ops = {	.destroy = VECTOR_destroy,
-									.softReset = VECTOR_softReset,
-									.reset = VECTOR_reset,
-									.resize = VECTOR_resize,
-									.capacity = VECTOR_capacity,
-									.length = VECTOR_length,
-									.isEmpty = VECTOR_isEmpty,
-									.isFull = VECTOR_isFull,
-									.first = VECTOR_first,
-									.last = VECTOR_last,
-									.at = VECTOR_at,
-									.insertFirst = VECTOR_insertFirst,
-									.insertLast = VECTOR_insertLast,
-									.insertAt = VECTOR_insertAt,
-									.extractFirst = VECTOR_extractFirst,
-									.extractLast = VECTOR_extractLast,
-									.extractAt = VECTOR_extractAt,
-									.concat = VECTOR_concat,
-									.traverse = VECTOR_traverse,
-									.print = VECTOR_print,
-								};
+static void LIST_print(List* list);
 
 
-Vector* VECTOR_create(u16 capacity){
+struct list_ops_s list_ops = {	.destroy = LIST_destroy,
+								.softReset = LIST_softReset,
+								.reset = LIST_reset,
+								.resize = LIST_resize,
+								.capacity = LIST_capacity,
+								.length = LIST_length,
+								.isEmpty = LIST_isEmpty,
+								.isFull = LIST_isFull,
+								.first = LIST_first,
+								.last = LIST_last,
+								.at = LIST_at,
+								.insertFirst = LIST_insertFirst,
+								.insertLast = LIST_insertLast,
+								.insertAt = LIST_insertAt,
+								.extractFirst = LIST_extractFirst,
+								.extractLast = LIST_extractLast,
+								.extractAt = LIST_extractAt,
+								.concat = LIST_concat,
+								.traverse = LIST_traverse,
+								.print = LIST_print,
+							};
+
+
+List* LIST_create(u16 capacity){
 	if (0 == capacity) {
 		return NULL;
 	}
 
-	Vector* new_vector = (Vector*)MM->malloc(sizeof(Vector));
-	if (NULL == new_vector) {
+	List* new_list = (List*)MM->malloc(sizeof(List));
+	if (NULL == new_list) {
 		return NULL;
 	}
 
-	new_vector->capacity_ = capacity;
-	new_vector->head_ = 0;
-	new_vector->tail_ = 0;
-	new_vector->ops_ = &vector_ops;
+	new_list->head_ = NULL;
+	new_list->tail_ = NULL;
+	new_list->length_ = 0;
+	new_list->capacity_ = capacity;
+	new_list->ops_ = &list_ops;
 
-	new_vector->storage_ = (MemoryNode*)MM->malloc(sizeof(MemoryNode) * capacity);
-	if (NULL == new_vector->storage_) {
-		MM->free(new_vector);
-		return NULL;
-	}
-
-	for (u16 idx = 0; idx < capacity; idx++) {
-		MEMNODE_createLite(&new_vector->storage_[idx]);
-	}
-
-	return new_vector;
+	return new_list;
 }
 
-s16 VECTOR_destroy(Vector* vector) {
-	if (NULL == vector) {
+s16 LIST_destroy(List* list) {
+	if (NULL == list) {
 		return kErrorCode_Null;
 	}
 
-	if (NULL != vector->storage_) {
-		for (u16 i = 0; i < vector->tail_; ++i) {
-			vector->storage_[i].ops_->reset(&vector->storage_[i]);
-		}
-		MM->free(vector->storage_);
+	MemoryNode* current = list->head_;
+	while (NULL != current) {
+		MemoryNode* next = current->next_;
+		current->ops_->free(current);
+		current = next;
 	}
 
-	vector->storage_ = NULL;
+	list->head_ = NULL;
+	list->tail_ = NULL;
+	list->length_ = 0;
+	list->capacity_ = 0;
+	list->ops_ = NULL;
 
-	vector->ops_ = NULL;
+	MM->free(list);
+	return kErrorCode_Ok;
+}
 
-	vector->head_ = 0;
+s16 LIST_softReset(List* list){
+	if (NULL == list) {
+		return kErrorCode_Null;
+	}
 
-	vector->tail_ = 0;
+	MemoryNode* current = list->head_;
+	while (NULL != current) {
+		MemoryNode* next = current->next_;
+		current->ops_->softFree(current);
+		current = next;
+	}
 
-	vector->capacity_ = 0;
-
-	MM->free(vector);
+	list->head_ = NULL;
+	list->tail_ = NULL;
+	list->length_ = 0;
 
 	return kErrorCode_Ok;
 }
 
-s16 VECTOR_softReset(Vector* vector){
-	if (NULL == vector) {
+s16 LIST_reset(List* list){
+	if (NULL == list) {
 		return kErrorCode_Null;
 	}
 
-	if (NULL == vector->storage_) {
-		return kErrorCode_NullData;
+	MemoryNode* current = list->head_;
+	while (NULL != current) {
+		MemoryNode* next = current->next_;
+		current->ops_->free(current);
+		current = next;
 	}
 
-	for (u16 i = 0; i < vector->tail_; ++i) {
-		vector->storage_[i].ops_->softReset(&vector->storage_[i]);
-	}
-
-	vector->tail_ = 0;
-	vector->head_ = 0;
+	list->head_ = NULL;
+	list->tail_ = NULL;
+	list->length_ = 0;
 
 	return kErrorCode_Ok;
 }
 
-s16 VECTOR_reset(Vector* vector){
-	if (NULL == vector) {
-		return kErrorCode_Null;
-	}
-	if (NULL == vector->storage_) {
-		return kErrorCode_NullData;
-	}
-
-	for (u16 i = 0; i < vector->tail_; ++i) {
-		vector->storage_[i].ops_->reset(&vector->storage_[i]);
-	}
-
-	vector->tail_ = 0;
-	vector->head_ = 0;
-
-	return kErrorCode_Ok;
-}
-
-s16 VECTOR_resize(Vector* vector, u16 new_size){
-	if (NULL == vector) {
+s16 LIST_resize(List* list, u16 new_size){
+	if (NULL == list) {
 		return kErrorCode_Null;
 	}
 	if (0 == new_size) {
 		return kErrorCode_ZeroSize;
 	}
-	if (new_size == vector->capacity_) {
-		return kErrorCode_Ok;
-	}
 
-	u16 previous_elem = vector->tail_;
-	boolean smaller = (new_size < vector->capacity_);
-
-	if (smaller && new_size < vector->tail_) {
-		u16 first_element_to_remove = new_size;
-		u16 last_element_to_remove = vector->tail_;
-
-		for (u16 i = first_element_to_remove; i < last_element_to_remove; ++i) {
-			vector->storage_[i].ops_->reset(&vector->storage_[i]);
+	if (new_size < list->length_) {
+		MemoryNode* current = list->head_;
+		for (u16 i = 0; i < new_size - 1 && NULL != current; ++i) {
+			current = current->next_;
 		}
 
-		previous_elem = new_size;
+		MemoryNode* discard = (NULL != current) ? current->next_ : NULL;
+		if (NULL != current) {
+			current->next_ = NULL;
+			list->tail_ = current;
+		}
+
+		while (NULL != discard) {
+			MemoryNode* next = discard->next_;
+			discard->ops_->free(discard);
+			discard = next;
+		}
+
+		list->length_ = new_size;
 	}
 
+	list->capacity_ = new_size;
+	return kErrorCode_Ok;
+}
 
-	MemoryNode* fresh_storage = (MemoryNode*)MM->malloc(sizeof(MemoryNode) * new_size);
-	if (NULL == fresh_storage) {
+
+u16 LIST_capacity(List* list){
+	return (NULL != list) ? list->capacity_ : 0;
+}
+
+u16 LIST_length(List* list){
+	return (NULL != list) ? list->length_ : 0;
+}
+
+boolean LIST_isEmpty(List* list){
+	if (NULL == list) {
+		return False;
+	}
+	return (0 == list->length_) ? True : False;
+}
+
+boolean LIST_isFull(List* list){
+	if (NULL == list) {
+		return False;
+	}
+	return (list->length_ == list->capacity_) ? True : False;
+}
+
+
+void* LIST_first(List* list, u16* size){
+	if (NULL == list || NULL == size) {
+		return NULL;
+	}
+	if (NULL == list->head_) {
+		return NULL;
+	}
+
+	*size = list->head_->size_;
+	return list->head_->data_;
+}
+
+void* LIST_last(List* list, u16* size){
+	if (NULL == list || NULL == size) {
+		return NULL;
+	}
+	if (NULL == list->tail_) {
+		return NULL;
+	}
+
+	*size = list->tail_->size_;
+	return list->tail_->data_;
+}
+
+void* LIST_at(List* list, u16* size, u16 position){
+	if (NULL == list || NULL == size) {
+		return NULL;
+	}
+	if (position >= list->length_) {
+		return NULL;
+	}
+
+	MemoryNode* current = list->head_;
+	for (u16 i = 0; i < position; ++i) {
+		current = current->next_;
+	}
+
+	*size = current->size_;
+	return current->data_;
+}
+
+
+s16 LIST_insertFirst(List* list, void* data, u16 bytes){
+	if (NULL == list) {
+		return kErrorCode_Null;
+	}
+	if (NULL == data) {
+		return kErrorCode_NullData;
+	}
+	if (0 == bytes) {
+		return kErrorCode_ZeroSize;
+	}
+	if (LIST_isFull(list)) {
+		return kErrorCode_IsFull;
+	}
+
+	MemoryNode* new_node = MEMNODE_create();
+	if (NULL == new_node) {
 		return kErrorCode_Memory;
 	}
+	new_node->ops_->setData(new_node, data, bytes);
 
-	for (u16 position = 0; position < new_size; ++position) {
-		MEMNODE_createLite(&fresh_storage[position]);
+	if (NULL == list->head_) {
+		list->head_ = new_node;
+		list->tail_ = new_node;
 	}
-
-
-	MemoryNode* source_storage = vector->storage_;
-	for (u16 i = 0; i < previous_elem; ++i) {
-		fresh_storage[i].data_ = source_storage[i].data_;
-		fresh_storage[i].size_ = source_storage[i].size_;
-		fresh_storage[i].ops_ = source_storage[i].ops_;
-		fresh_storage[i].next_ = source_storage[i].next_;
-		fresh_storage[i].prev_ = source_storage[i].prev_;
+	else {
+		new_node->next_ = list->head_;
+		list->head_ = new_node;
 	}
-
-	MM->free(source_storage);
-
-	vector->storage_ = fresh_storage;
-	vector->capacity_ = new_size;
-	vector->tail_ = previous_elem;
-	vector->head_ = 0;
+	list->length_++;
 
 	return kErrorCode_Ok;
 }
 
-
-u16 VECTOR_capacity(Vector* vector){
-	return (NULL != vector) ? vector->capacity_ : 0;
-}
-
-u16 VECTOR_length(Vector* vector){
-	return (NULL != vector) ? vector->tail_ : 0;
-}
-
-boolean VECTOR_isEmpty(Vector* vector){
-	if (NULL == vector) {
-		return False;
-	}
-	return (vector->head_ == vector->tail_) ? True : False;
-}
-
-boolean VECTOR_isFull(Vector* vector){
-	if (NULL == vector) {
-		return False;
-	}
-	return (vector->tail_ == vector->capacity_) ? True : False;
-}
-
-
-void* VECTOR_first(Vector* vector, u16* size){
-	if (NULL == vector || NULL == size) {
-		return NULL;
-	}
-	if (0 == vector->tail_) {
-		return NULL;
-	}
-
-	*size = vector->storage_[0].size_;
-	return vector->storage_[0].data_;
-}
-
-void* VECTOR_last(Vector* vector, u16* size){
-	if (NULL == vector || NULL == size) {
-		return NULL;
-	}
-	if (0 == vector->tail_) {
-		return NULL;
-	}
-
-	MemoryNode* last_node = &vector->storage_[vector->tail_ - 1];
-	*size = last_node->size_;
-	return last_node->data_;
-}
-
-void* VECTOR_at(Vector* vector, u16* size, u16 position){
-	if (NULL == vector || NULL == size) {
-		return NULL;
-	}
-	if (position >= vector->tail_) {
-		return NULL;
-	}
-
-	MemoryNode* target_node = &vector->storage_[position];
-	*size = target_node->size_;
-	return target_node->data_;
-}
-
-
-s16 VECTOR_insertFirst(Vector* vector, void* data, u16 bytes){
-	if (NULL == vector) {
+s16 LIST_insertLast(List* list, void* data, u16 bytes){
+	if (NULL == list) {
 		return kErrorCode_Null;
 	}
 	if (NULL == data) {
@@ -292,22 +292,31 @@ s16 VECTOR_insertFirst(Vector* vector, void* data, u16 bytes){
 	if (0 == bytes) {
 		return kErrorCode_ZeroSize;
 	}
-	if (VECTOR_isFull(vector)) {
+	if (LIST_isFull(list)) {
 		return kErrorCode_IsFull;
 	}
 
-	for (u16 i = vector->tail_; i > 0; --i) {
-		vector->storage_[i] = vector->storage_[i - 1];
+	MemoryNode* new_node = MEMNODE_create();
+	if (NULL == new_node) {
+		return kErrorCode_Memory;
 	}
+	new_node->ops_->setData(new_node, data, bytes);
 
-	vector->storage_[0].ops_->setData(&vector->storage_[0], data, bytes);
-	vector->tail_++;
+	if (NULL == list->tail_) {
+		list->head_ = new_node;
+		list->tail_ = new_node;
+	}
+	else {
+		list->tail_->next_ = new_node;
+		list->tail_ = new_node;
+	}
+	list->length_++;
 
 	return kErrorCode_Ok;
 }
 
-s16 VECTOR_insertLast(Vector* vector, void* data, u16 bytes){
-	if (NULL == vector) {
+s16 LIST_insertAt(List* list, void* data, u16 bytes, u16 position){
+	if (NULL == list) {
 		return kErrorCode_Null;
 	}
 	if (NULL == data) {
@@ -316,261 +325,215 @@ s16 VECTOR_insertLast(Vector* vector, void* data, u16 bytes){
 	if (0 == bytes) {
 		return kErrorCode_ZeroSize;
 	}
-	if (VECTOR_isFull(vector)) {
+	if (LIST_isFull(list)) {
 		return kErrorCode_IsFull;
 	}
 
-	vector->storage_[vector->tail_].ops_->setData(
-		&vector->storage_[vector->tail_], data, bytes);
-	vector->tail_++;
-
-	return kErrorCode_Ok;
-}
-
-s16 VECTOR_insertAt(Vector* vector, void* data, u16 bytes, u16 position){
-	if (NULL == vector) {
-		return kErrorCode_Null;
+	if (0 == position) {
+		return LIST_insertFirst(list, data, bytes);
 	}
-	if (NULL == data) {
-		return kErrorCode_NullData;
-	}
-	if (0 == bytes) {
-		return kErrorCode_ZeroSize;
-	}
-	if (VECTOR_isFull(vector)) {
-		return kErrorCode_IsFull;
+	if (position >= list->length_) {
+		return LIST_insertLast(list, data, bytes);
 	}
 
-	if (position > vector->tail_) {
-		position = vector->tail_;
+	MemoryNode* prev_node = list->head_;
+	for (u16 i = 0; i < position - 1; ++i) {
+		prev_node = prev_node->next_;
 	}
 
-	if (position == vector->tail_) {
-		return VECTOR_insertLast(vector, data, bytes);
+	MemoryNode* new_node = MEMNODE_create();
+	if (NULL == new_node) {
+		return kErrorCode_Memory;
 	}
+	new_node->ops_->setData(new_node, data, bytes);
 
-	for (u16 i = vector->tail_; i > position; --i) {
-		vector->storage_[i] = vector->storage_[i - 1];
-	}
-
-	vector->storage_[position].ops_->setData(
-		&vector->storage_[position], data, bytes);
-	vector->tail_++;
+	new_node->next_ = prev_node->next_;
+	prev_node->next_ = new_node;
+	list->length_++;
 
 	return kErrorCode_Ok;
 }
 
 
-void* VECTOR_extractFirst(Vector* vector, u16* size){
-	if (NULL == vector || NULL == size) {
+void* LIST_extractFirst(List* list, u16* size){
+	if (NULL == list || NULL == size) {
 		return NULL;
 	}
-	if (VECTOR_isEmpty(vector)) {
+	if (NULL == list->head_) {
 		return NULL;
 	}
 
-	MemoryNode* first_node = &vector->storage_[0];
-	void* extracted_data = first_node->data_;
-	*size = first_node->size_;
+	MemoryNode* old_head = list->head_;
+	void* extracted_data = old_head->data_;
+	*size = old_head->size_;
 
-	for (u16 i = 0; i < vector->tail_ - 1; i++) {
-		vector->storage_[i] = vector->storage_[i + 1];
+	list->head_ = old_head->next_;
+	if (NULL == list->head_) {
+		list->tail_ = NULL;
 	}
+	list->length_--;
 
-	vector->tail_--;
-
+	old_head->ops_->softFree(old_head);
 	return extracted_data;
 }
 
-void* VECTOR_extractLast(Vector* vector, u16* size){
-	if (NULL == vector || NULL == size) {
+void* LIST_extractLast(List* list, u16* size){
+	if (NULL == list || NULL == size) {
 		return NULL;
 	}
-	if (VECTOR_isEmpty(vector)) {
+	if (NULL == list->tail_) {
 		return NULL;
 	}
 
-	MemoryNode* last_node = &vector->storage_[vector->tail_ - 1];
-	void* extracted_data = last_node->data_;
-	*size = last_node->size_;
+	MemoryNode* old_tail = list->tail_;
+	void* extracted_data = old_tail->data_;
+	*size = old_tail->size_;
 
-	vector->tail_--;
+	if (list->head_ == list->tail_) {
+		list->head_ = NULL;
+		list->tail_ = NULL;
+	}
+	else {
+		MemoryNode* runner = list->head_;
+		while (runner->next_ != old_tail) {
+			runner = runner->next_;
+		}
+		runner->next_ = NULL;
+		list->tail_ = runner;
+	}
+	list->length_--;
 
-	vector->storage_[vector->tail_].data_ = NULL;
-
-	vector->storage_[vector->tail_].size_ = 0;
-
+	old_tail->ops_->softFree(old_tail);
 	return extracted_data;
 }
 
-void* VECTOR_extractAt(Vector* vector, u16* size, u16 position){
-	if (NULL == vector || NULL == size) {
+void* LIST_extractAt(List* list, u16* size, u16 position){
+	if (NULL == list || NULL == size) {
 		return NULL;
 	}
-	if (VECTOR_isEmpty(vector)) {
-		return NULL;
-	}
-	if (position >= vector->tail_) {
+	if (position >= list->length_) {
 		return NULL;
 	}
 
 	if (0 == position) {
-		return VECTOR_extractFirst(vector, size);
+		return LIST_extractFirst(list, size);
+	}
+	if (position == list->length_ - 1) {
+		return LIST_extractLast(list, size);
 	}
 
-	if (position == vector->tail_ - 1) {
-		return VECTOR_extractLast(vector, size);
+	MemoryNode* prev_node = list->head_;
+	for (u16 i = 0; i < position - 1; ++i) {
+		prev_node = prev_node->next_;
 	}
 
-	MemoryNode* target_node = &vector->storage_[position];
-	void* extracted_data = target_node->data_;
-	*size = target_node->size_;
+	MemoryNode* target = prev_node->next_;
+	void* extracted_data = target->data_;
+	*size = target->size_;
 
-	for (u16 i = position; i < vector->tail_ - 1; ++i) {
-		vector->storage_[i] = vector->storage_[i + 1];
-	}
+	prev_node->next_ = target->next_;
+	list->length_--;
 
-	vector->tail_--;
-
-	vector->storage_[vector->tail_].data_ = NULL;
-	vector->storage_[vector->tail_].size_ = 0;
-
+	target->ops_->softFree(target);
 	return extracted_data;
 }
 
 
-s16 VECTOR_concat(Vector* vector, Vector* vector_src){
-	if (NULL == vector || NULL == vector_src) {
+s16 LIST_concat(List* list, List* list_src){
+	if (NULL == list || NULL == list_src) {
 		return kErrorCode_Null;
 	}
 
-	u16 source_element_count = vector_src->tail_;
-	if (0 == source_element_count) {
-		return kErrorCode_Ok;
-	}
-
-	u16 current_element_count = vector->tail_;
-	u16 total_elements_after_concat = current_element_count + source_element_count;
-	u16 available_space = vector->capacity_;
-	boolean needs_expansion = (total_elements_after_concat > available_space);
-
-	if (needs_expansion) {
-		u16 expanded_capacity = vector->capacity_ + vector_src->capacity_;
-		s16 expansion_result = VECTOR_resize(vector, expanded_capacity);
-
-		if (kErrorCode_Ok != expansion_result) {
-			return expansion_result;
+	u16 total_after = list->length_ + list_src->length_;
+	if (total_after > list->capacity_) {
+		s16 expansion = LIST_resize(list, list->capacity_ + list_src->capacity_);
+		if (kErrorCode_Ok != expansion) {
+			return expansion;
 		}
 	}
 
-	u16 insertion_point = current_element_count;
+	MemoryNode* source_runner = list_src->head_;
+	while (NULL != source_runner) {
+		MemoryNode* new_node = MEMNODE_create();
+		if (NULL == new_node) {
+			return kErrorCode_Memory;
+		}
 
-	for (u16 source_idx = 0; source_idx < source_element_count; source_idx++) {
-		MemoryNode* node_to_copy = &vector_src->storage_[source_idx];
-		u16 destination_idx = insertion_point + source_idx;
-		MemoryNode* destination_node = &vector->storage_[destination_idx];
-
-		s16 copy_result = destination_node->ops_->memCopy(
-			destination_node,
-			node_to_copy->data_,
-			node_to_copy->size_
-		);
-
+		s16 copy_result = new_node->ops_->memCopy(new_node,
+			source_runner->data_,
+			source_runner->size_);
 		if (kErrorCode_Ok != copy_result) {
+			new_node->ops_->softFree(new_node);
 			return copy_result;
 		}
-	}
 
-	vector->tail_ = total_elements_after_concat;
+		if (NULL == list->tail_) {
+			list->head_ = new_node;
+			list->tail_ = new_node;
+		}
+		else {
+			list->tail_->next_ = new_node;
+			list->tail_ = new_node;
+		}
+		list->length_++;
+
+		source_runner = source_runner->next_;
+	}
 
 	return kErrorCode_Ok;
 }
 
-s16 VECTOR_traverse(Vector* vector, void (*callback)(MemoryNode*)){
-	if (NULL == vector) {
+s16 LIST_traverse(List* list, void (*callback)(MemoryNode*)){
+	if (NULL == list) {
 		return kErrorCode_Null;
 	}
 	if (NULL == callback) {
 		return kErrorCode_Null;
 	}
-	u16 first_element = vector->head_;
-	u16 last_element = vector->tail_;
-	u16 total_iterations = last_element - first_element;
 
-	if (0 == total_iterations) {
-		return kErrorCode_Ok;
-	}
-
-	for (u16 current_position = first_element; current_position < last_element; ++current_position) {
-		MemoryNode* current_node = &vector->storage_[current_position];
-
-		callback(current_node);
-
-		printf("\n");
+	MemoryNode* current = list->head_;
+	while (NULL != current) {
+		callback(current);
+		current = current->next_;
 	}
 
 	return kErrorCode_Ok;
 }
 
 
-void VECTOR_print(Vector* vector){
-	if (NULL == vector) {
-		printf("[Vector Info] Null Vector\n");
+void LIST_print(List* list){
+	if (NULL == list) {
+		printf("[List Info] Null List\n");
 		return;
 	}
 
-	printf("[Vector Info] Address: %p\n", (void*)vector);
-	printf("[Vector Info] Head: %d\n", vector->head_);
-	printf("[Vector Info] Tail: %d\n", vector->tail_);
-	printf("[Vector Info] Length: %d\n", (vector->tail_ - vector->head_));
-	printf("[Vector Info] Capacity: %d\n", vector->capacity_);
+	printf("[List Info] Address: %p\n", (void*)list);
+	printf("[List Info] Length: %d\n", list->length_);
+	printf("[List Info] Capacity: %d\n", list->capacity_);
+	printf("[List Info] Head: %p\n", (void*)list->head_);
+	printf("[List Info] Tail: %p\n", (void*)list->tail_);
 
-	if (NULL == vector->storage_) {
-		printf("[Vector Info] Storage Address: NULL\n");
-	}
-	else {
-		printf("[Vector Info] Storage Address: %p\n", (void*)vector->storage_);
-	}
+	MemoryNode* current = list->head_;
+	u16 idx = 0;
+	while (NULL != current) {
+		printf("    [List Info] Node #%d\n", idx);
+		printf("        [Node Info] Address: %p\n", (void*)current);
+		printf("        [Node Info] Size: %d\n", current->size_);
 
-	// MEJORA: Imprimir cada nodo del storage usado
-	for (u16 idx = 0; idx < vector->tail_; idx++) {
-		printf("    [Vector Info] Storage #%d\n", idx);
-		printf("        [Node Info] Address: %p\n", (void*)&vector->storage_[idx]);
-		printf("        [Node Info] Size: %d\n", vector->storage_[idx].size_);
-
-		if (NULL == vector->storage_[idx].data_) {
+		if (NULL == current->data_) {
 			printf("        [Node Info] Data Address: NULL\n");
 		}
 		else {
-			printf("        [Node Info] Data Address: %p\n",
-				(void*)vector->storage_[idx].data_);
-		}
-
-		if (NULL != vector->storage_[idx].data_ && vector->storage_[idx].size_ > 0) {
+			printf("        [Node Info] Data Address: %p\n", (void*)current->data_);
 			printf("        [Node Info] Data Content: ");
-			u8* byte_data = (u8*)vector->storage_[idx].data_;
-			for (u16 j = 0; j < vector->storage_[idx].size_; j++) {
+			u8* byte_data = (u8*)current->data_;
+			for (u16 j = 0; j < current->size_; j++) {
 				printf("%c", byte_data[j]);
 			}
 			printf("\n");
 		}
 
-		if (NULL == vector->storage_[idx].next_) {
-			printf("        [Node Info] Next Address: NULL\n");
-		}
-		else {
-			printf("        [Node Info] Next Address: %p\n",
-				(void*)vector->storage_[idx].next_);
-		}
-
-		if (NULL == vector->storage_[idx].prev_) {
-			printf("        [Node Info] Prev Address: NULL\n");
-		}
-		else {
-			printf("        [Node Info] Prev Address: %p\n",
-				(void*)vector->storage_[idx].prev_);
-		}
+		current = current->next_;
+		idx++;
 	}
 }
-
-

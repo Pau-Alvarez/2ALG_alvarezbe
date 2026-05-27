@@ -1,210 +1,227 @@
 /*
- * 
- * adt_vector.h
+ *
+ * adt_circular_vector.h
  * Toni Barella, Ivan Sancho as Unreal Authorized Instructor (UAI).
  * Algorithms and Data Structures.
  * ESAT 2020-2021
- * 
+ *
  */
 
-#ifndef __ADT_VECTOR_H__
-#define __ADT_VECTOR_H__
+#ifndef __ADT_CIRCULAR_VECTOR_H__
+#define __ADT_CIRCULAR_VECTOR_H__
 
 #include "adt_memory_node.h"
 
-typedef struct adt_vector_s {
-	u16 head_;
-	u16 tail_; //First free place.
-	u16 capacity_;
-	MemoryNode *storage_;
-	struct vector_ops_s *ops_;
-} Vector;
-
-struct vector_ops_s {
 /**
- * @brief Destroys the vector and frees all its data
- * @param vector The vector to destroy
- * @return Status code indicating success or failure (s16)
+ * @brief Circular vector ADT backed by a wrap-around MemoryNode array.
+ * @details Indices @p head_ and @p tail_ wrap around @p capacity_, so both
+ *          ends can grow/shrink in O(1) without shifting elements. The
+ *          field @p length_ keeps the actual amount of stored elements.
  */
-s16 (*destroy)(Vector* vector);
-
-/**
- * @brief Soft resets the vector's data without freeing memory
- * @param vector The vector to soft reset
- * @return Status code indicating success or failure (s16)
- */
-s16 (*softReset)(Vector* vector);
+typedef struct adt_circ_vector {
+	u16 head_;                        /**< Index of the first element. */
+	u16 tail_;                        /**< Index of the first free slot. */
+	u16 length_;                      /**< Number of stored elements. */
+	u16 capacity_;                    /**< Maximum number of elements. */
+	MemoryNode *storage_;             /**< Circular MemoryNode storage. */
+	struct adt_circ_vector_s *ops_;   /**< Pointer to the CircularVector API. */
+} CircularVector;
 
 /**
- * @brief Resets the vector's data
- * @param vector The vector to reset
- * @return Status code indicating success or failure (s16)
+ * @brief Public API for the CircularVector ADT.
  */
-s16 (*reset)(Vector* vector);
+struct adt_circ_vector_s {
+	/**
+	 * @brief Releases every node of the vector and frees the vector itself.
+	 * @param vector The vector to destroy.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*destroy)(CircularVector* vector);
 
-/**
- * @brief Resizes the capacity of the vector (may delete elements)
- * @param vector The vector to resize
- * @param new_size The new capacity for the vector
- * @return Status code indicating success or failure (s16)
- */
-s16 (*resize)(Vector* vector, u16 new_size);
+	/**
+	 * @brief Empties the vector without freeing the data buffers.
+	 * @param vector The vector to soft reset.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if the storage is NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*softReset)(CircularVector* vector);
 
-// State queries:
+	/**
+	 * @brief Empties the vector freeing every data buffer.
+	 * @param vector The vector to reset.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if the storage is NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*reset)(CircularVector* vector);
 
-/**
- * @brief Returns the maximum number of elements the vector can store
- * @param vector The vector to query
- * @return Maximum capacity of the vector (u16)
- */
-u16 (*capacity)(Vector* vector);
+	/**
+	 * @brief Changes the maximum capacity of the vector.
+	 * @details When @p new_size is smaller than the current length the
+	 *          extra elements located at the back are released.
+	 * @param vector The vector to resize.
+	 * @param new_size New capacity.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_ZeroSize if @p new_size is 0,
+	 *         kErrorCode_Memory on allocation failure,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*resize)(CircularVector* vector, u16 new_size);
 
-/**
- * @brief Returns the current number of elements in the vector
- * @param vector The vector to query
- * @return Current number of elements, always <= capacity (u16)
- */
-u16 (*length)(Vector* vector);
+	/**
+	 * @brief Returns the maximum capacity of the vector.
+	 * @param vector The vector to query.
+	 * @return Capacity, or 0 if @p vector is NULL.
+	 */
+	u16 (*capacity)(CircularVector* vector);
 
-/**
- * @brief Checks if the vector is empty
- * @param vector The vector to check
- * @return True if the vector is empty, false otherwise
- */
-boolean (*isEmpty)(Vector* vector);
+	/**
+	 * @brief Returns the current number of stored elements.
+	 * @param vector The vector to query.
+	 * @return Length, or 0 if @p vector is NULL.
+	 */
+	u16 (*length)(CircularVector* vector);
 
-/**
- * @brief Checks if the vector is full
- * @param vector The vector to check
- * @return True if the vector is full, false otherwise
- */
-boolean (*isFull)(Vector* vector);
+	/**
+	 * @brief Tells whether the vector is empty.
+	 * @param vector The vector to query.
+	 * @return True if empty, False otherwise or if @p vector is NULL.
+	 */
+	boolean (*isEmpty)(CircularVector* vector);
 
-// Data queries:
+	/**
+	 * @brief Tells whether the vector has reached its capacity.
+	 * @param vector The vector to query.
+	 * @return True if full, False otherwise or if @p vector is NULL.
+	 */
+	boolean (*isFull)(CircularVector* vector);
 
-/**
- * @brief Returns a reference to the first element of the vector
- * @param vector The vector to query
- * @param size Pointer to store the size of the element
- * @return Pointer to the first element's data
- */
-void* (*first)(Vector* vector, u16* size);
+	/**
+	 * @brief Returns the data stored at the first logical position.
+	 * @param vector The vector to query.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the data, or NULL on invalid input.
+	 */
+	void* (*first)(CircularVector* vector, u16* size);
 
-/**
- * @brief Returns a reference to the last element of the vector
- * @param vector The vector to query
- * @param size Pointer to store the size of the element
- * @return Pointer to the last element's data
- */
-void* (*last)(Vector* vector, u16* size);
+	/**
+	 * @brief Returns the data stored at the last logical position.
+	 * @param vector The vector to query.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the data, or NULL on invalid input.
+	 */
+	void* (*last)(CircularVector* vector, u16* size);
 
-/**
- * @brief Returns a reference to the element at a given position
- * @param vector The vector to query
- * @param size Pointer to store the size of the element
- * @param position The index of the element to retrieve
- * @return Pointer to the element's data at the specified position
- */
-void* (*at)(Vector* vector, u16* size, u16 position);
+	/**
+	 * @brief Returns the data stored at @p position counted from the head.
+	 * @param vector The vector to query.
+	 * @param size Output parameter that receives the size of the element.
+	 * @param position Zero based logical index of the element.
+	 * @return Pointer to the data, or NULL on invalid input.
+	 */
+	void* (*at)(CircularVector* vector, u16* size, u16 position);
 
-// Insertion:
+	/**
+	 * @brief Inserts an element at the first logical position.
+	 * @param vector The vector to modify.
+	 * @param data Pointer to the data to insert.
+	 * @param bytes Size in bytes of @p data.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if @p data is NULL,
+	 *         kErrorCode_ZeroSize if @p bytes is 0,
+	 *         kErrorCode_IsFull if the vector is full,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*insertFirst)(CircularVector* vector, void *data, u16 bytes);
 
-/**
- * @brief Inserts an element at the first position of the vector
- * @param vector The vector to modify
- * @param data Pointer to the data to insert
- * @param bytes Number of bytes to insert
- * @return Status code indicating success or failure (s16)
- */
-s16 (*insertFirst)(Vector* vector, void *data, u16 bytes);
+	/**
+	 * @brief Inserts an element at the last logical position.
+	 * @param vector The vector to modify.
+	 * @param data Pointer to the data to insert.
+	 * @param bytes Size in bytes of @p data.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if @p data is NULL,
+	 *         kErrorCode_ZeroSize if @p bytes is 0,
+	 *         kErrorCode_IsFull if the vector is full,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*insertLast)(CircularVector* vector, void *data, u16 bytes);
 
-/**
- * @brief Inserts an element at the last position of the vector
- * @param vector The vector to modify
- * @param data Pointer to the data to insert
- * @param bytes Number of bytes to insert
- * @return Status code indicating success or failure (s16)
- */
-s16 (*insertLast)(Vector* vector, void *data, u16 bytes);
+	/**
+	 * @brief Inserts an element at a given logical position.
+	 * @details Positions beyond the current length are clamped to the tail.
+	 * @param vector The vector to modify.
+	 * @param data Pointer to the data to insert.
+	 * @param bytes Size in bytes of @p data.
+	 * @param position Zero based logical index.
+	 * @return kErrorCode_Null if @p vector is NULL,
+	 *         kErrorCode_NullData if @p data is NULL,
+	 *         kErrorCode_ZeroSize if @p bytes is 0,
+	 *         kErrorCode_IsFull if the vector is full,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*insertAt)(CircularVector* vector, void *data, u16 bytes, u16 position);
 
-/**
- * @brief Inserts an element at a given position in the vector
- * @param vector The vector to modify
- * @param data Pointer to the data to insert
- * @param bytes Number of bytes to insert
- * @param position The index where the element will be inserted
- * @return Status code indicating success or failure (s16)
- */
-s16 (*insertAt)(Vector* vector, void *data, u16 bytes, u16 position);
+	/**
+	 * @brief Extracts and removes the first logical element.
+	 * @param vector The vector to modify.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the extracted data, or NULL on invalid input.
+	 */
+	void* (*extractFirst)(CircularVector* vector, u16* size);
 
-// Extraction:
+	/**
+	 * @brief Extracts and removes the last logical element.
+	 * @param vector The vector to modify.
+	 * @param size Output parameter that receives the size of the element.
+	 * @return Pointer to the extracted data, or NULL on invalid input.
+	 */
+	void* (*extractLast)(CircularVector* vector, u16* size);
 
-/**
- * @brief Extracts and removes the first element of the vector
- * @param vector The vector to modify
- * @param size Pointer to store the size of the extracted element
- * @return Pointer to the extracted element's data
- */
-void* (*extractFirst)(Vector* vector, u16* size);
+	/**
+	 * @brief Extracts and removes the element at logical @p position.
+	 * @param vector The vector to modify.
+	 * @param size Output parameter that receives the size of the element.
+	 * @param position Zero based logical index of the element to extract.
+	 * @return Pointer to the extracted data, or NULL on invalid input.
+	 */
+	void* (*extractAt)(CircularVector* vector, u16* size, u16 position);
 
-/**
- * @brief Extracts and removes the last element of the vector
- * @param vector The vector to modify
- * @param size Pointer to store the size of the extracted element
- * @return Pointer to the extracted element's data
- */
-void* (*extractLast)(Vector* vector, u16* size);
+	/**
+	 * @brief Concatenates @p vector_src at the tail of @p vector.
+	 * @details Data of @p vector_src is deep copied so both vectors stay
+	 *          independent. The destination capacity grows when needed.
+	 * @param vector Destination vector.
+	 * @param vector_src Source vector.
+	 * @return kErrorCode_Null if any vector is NULL,
+	 *         kErrorCode_Memory on allocation failure,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*concat)(CircularVector* vector, CircularVector *vector_src);
 
-/**
- * @brief Extracts and removes the element at a given position
- * @param vector The vector to modify
- * @param size Pointer to store the size of the extracted element
- * @param position The index of the element to extract
- * @return Pointer to the extracted element's data
- */
-void* (*extractAt)(Vector* vector, u16* size, u16 position);
+	/**
+	 * @brief Calls @p callback for every stored element from head to tail.
+	 * @param vector The vector to traverse.
+	 * @param callback Function applied to each MemoryNode.
+	 * @return kErrorCode_Null if @p vector or @p callback are NULL,
+	 *         kErrorCode_Ok otherwise.
+	 */
+	s16 (*traverse)(CircularVector* vector, void (*callback)(MemoryNode *));
 
-// Miscellaneous:
-
-/**
- * @brief Concatenates two vectors
- * @param vector The destination vector
- * @param vector_src The source vector to concatenate
- * @return Status code indicating success or failure (s16)
- */
-s16 (*concat)(Vector* vector, Vector *vector_src);
-
-/**
- * @brief Traverses all elements of the vector and applies a callback function
- * @param vector The vector to traverse
- * @param callback Function to call for each element
- * @return Status code indicating success or failure (s16)
- */
-s16 (*traverse)(Vector* vector, void (*callback)(MemoryNode *));
-
-/**
- * @brief Prints the features and content of the vector
- * @param vector The vector to print
- */
-void (*print)(Vector* vector);
+	/**
+	 * @brief Prints the content of the vector to standard output.
+	 * @param vector The vector to print.
+	 */
+	void (*print)(CircularVector* vector);
 };
 
 /**
- * @brief Creates a new vector with the specified capacity
- * @param capacity The maximum number of elements the vector can store
- * @return Pointer to the newly created vector
+ * @brief Creates a new circular vector with the specified capacity.
+ * @param capacity Maximum number of elements the vector will hold.
+ * @return Pointer to the new vector, or NULL on invalid input or failure.
  */
-Vector* VECTOR_create(u16 capacity);
+CircularVector* CIRCULARVECTOR_create(u16 capacity);
 
-#endif //__ADT_VECTOR_H__
-
-
-
-
-
-
-
-
-
-
-
+#endif //__ADT_CIRCULAR_VECTOR_H__

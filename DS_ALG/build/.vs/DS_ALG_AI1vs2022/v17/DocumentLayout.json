@@ -1,15 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\build\\",
+  "WorkspaceRootPath": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\build\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{83AD9DCC-6F91-5E22-D8F1-5875C4F448A4}|PR04_MovableVector\\vs2022\\PR04_MovableVector.vcxproj|D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\src\\adt_movable_vector.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2A188225-1612-AB77-FF7E-4188EB1711E4}|PR13_SortingAlgorithms\\vs2022\\PR13_SortingAlgorithms.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83AD9DCC-6F91-5E22-D8F1-5875C4F448A4}|PR04_MovableVector\\vs2022\\PR04_MovableVector.vcxproj|D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\tests\\test_mh_vector.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2A188225-1612-AB77-FF7E-4188EB1711E4}|PR13_SortingAlgorithms\\vs2022\\PR13_SortingAlgorithms.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83AD9DCC-6F91-5E22-D8F1-5875C4F448A4}|PR04_MovableVector\\vs2022\\PR04_MovableVector.vcxproj|D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\include\\adt_movable_vector.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2C49F253-1801-34A1-8108-0DFD6DDFCE91}|PR10_Queue\\vs2022\\PR10_Queue.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6528A01C-51E0-E169-BAE7-BAC5A6BE7C5A}|PR09_Stack\\vs2022\\PR09_Stack.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4474EEB6-306D-0D09-599F-F28D45F7EC14}|PR12_Comparative\\vs2022\\PR12_Comparative.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -28,40 +34,65 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "adt_movable_vector.h",
-              "DocumentMoniker": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\include\\adt_movable_vector.h",
-              "RelativeDocumentMoniker": "..\\include\\adt_movable_vector.h",
-              "ToolTip": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\include\\adt_movable_vector.h",
-              "RelativeToolTip": "..\\include\\adt_movable_vector.h",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-03-04T09:45:40.958Z",
+              "Title": "adt_queue.c",
+              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c",
+              "RelativeDocumentMoniker": "..\\src\\adt_queue.c",
+              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c",
+              "RelativeToolTip": "..\\src\\adt_queue.c",
+              "ViewState": "AgIAAPYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-05-27T05:25:45.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "adt_stack.c",
+              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
+              "RelativeDocumentMoniker": "..\\src\\adt_stack.c",
+              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
+              "RelativeToolTip": "..\\src\\adt_stack.c",
+              "ViewState": "AgIAAEQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-05-27T05:25:00.629Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "test_mh_vector.c",
-              "DocumentMoniker": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\tests\\test_mh_vector.c",
-              "RelativeDocumentMoniker": "..\\tests\\test_mh_vector.c",
-              "ToolTip": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\tests\\test_mh_vector.c",
-              "RelativeToolTip": "..\\tests\\test_mh_vector.c",
-              "ViewState": "AgIAAMsDAAAAAAAAAAAAAM8DAAAZAAAAAAAAAA==",
+              "Title": "algo_quicksort.c",
+              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c",
+              "RelativeDocumentMoniker": "..\\src\\algo_quicksort.c",
+              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c",
+              "RelativeToolTip": "..\\src\\algo_quicksort.c",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAFgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-03-04T09:20:16.866Z",
+              "WhenOpened": "2026-05-27T04:56:40.026Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "adt_movable_vector.c",
-              "DocumentMoniker": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\src\\adt_movable_vector.c",
-              "RelativeDocumentMoniker": "..\\src\\adt_movable_vector.c",
-              "ToolTip": "D:\\Perfiles\\alvarezbe\\Documents\\Algoritmos\\miau\\2ALG_alvarezbe-main\\DS_ALG\\src\\adt_movable_vector.c",
-              "RelativeToolTip": "..\\src\\adt_movable_vector.c",
-              "ViewState": "AgIAAB8BAAAAAAAAAAAqwCABAAAbAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "comparative.c",
+              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c",
+              "RelativeDocumentMoniker": "..\\src\\comparative.c",
+              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c",
+              "RelativeToolTip": "..\\src\\comparative.c",
+              "ViewState": "AgIAAEMBAAAAAAAAAAAtwFIBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-03-04T09:07:35.827Z",
+              "WhenOpened": "2026-05-27T04:06:11.637Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "sorting_main.c",
+              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c",
+              "RelativeDocumentMoniker": "..\\src\\sorting_main.c",
+              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c",
+              "RelativeToolTip": "..\\src\\sorting_main.c",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAAJIAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-05-27T04:04:14.127Z",
               "EditorCaption": ""
             }
           ]

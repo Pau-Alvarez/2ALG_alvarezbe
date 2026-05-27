@@ -1,0 +1,94 @@
+﻿  adt_memory_node.c
+  adt_vector.c
+  test_vector.c
+  Generando código...
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(88,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(101,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(111,12): warning C4456: la declaración de 'i' oculta la declaración local anterior
+      C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(109,11):
+      vea la declaración de 'i'
+  
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(112,12): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(129,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(135,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(141,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(147,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(153,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 *"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(244,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(261,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(265,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(269,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(273,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [3]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(277,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [3]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(307,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(324,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(328,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(332,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(336,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(340,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [6]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(370,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(396,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [6]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(400,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(404,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(408,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [3]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(412,45): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [2]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(416,46): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [7]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(538,31): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(565,31): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [7]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(595,31): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(602,31): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [6]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(631,39): warning C4047: 'función': 'u16 *' es distinto en los niveles de direccionamiento indirecto de 'u16'
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(631,39): warning C4024: 'función mediante puntero': tipos distintos para el parámetro formal y el parámetro real 2
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(641,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(653,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [3]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(658,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [3]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(663,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(668,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(673,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [4]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(691,38): warning C4047: 'función': 'u16 *' es distinto en los niveles de direccionamiento indirecto de 'u16'
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(691,38): warning C4024: 'función mediante puntero': tipos distintos para el parámetro formal y el parámetro real 2
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(709,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(721,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(726,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(731,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(736,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(741,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [6]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(746,44): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [7]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(764,36): warning C4047: 'función': 'u16 *' es distinto en los niveles de direccionamiento indirecto de 'u16'
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(764,36): warning C4024: 'función mediante puntero': tipos distintos para el parámetro formal y el parámetro real 2
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(768,33): warning C4047: 'función': 'u16 *' es distinto en los niveles de direccionamiento indirecto de 'u16'
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(768,33): warning C4024: 'función mediante puntero': tipos distintos para el parámetro formal y el parámetro real 2
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(778,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(837,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(849,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(861,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(874,11): warning C4057: "función": "char *const " difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [60]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(920,48): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [6]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(922,48): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [5]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(924,48): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [11]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(926,48): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [23]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(929,48): warning C4057: "función": "const char *" difiere en direccionamiento indirecto en tipos base ligeramente diferentes de "u8 [28]"
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(61,6): warning C4047: 'inicializando': 'u16' es distinto en los niveles de direccionamiento indirecto de 'void *'
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(255,5): warning C4295: 'q_00': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(256,5): warning C4295: 'q_01': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(257,5): warning C4295: 'q_02': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(258,5): warning C4295: 'q_03': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(259,5): warning C4295: 'q_04': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(318,5): warning C4295: 'q_05': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(319,5): warning C4295: 'q_06': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(320,5): warning C4295: 'q_07': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(321,5): warning C4295: 'q_08': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(322,5): warning C4295: 'q_09': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(389,5): warning C4295: 'q_10': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(390,5): warning C4295: 'q_11': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(391,5): warning C4295: 'q_12': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(392,5): warning C4295: 'q_13': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(393,5): warning C4295: 'q_14': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(394,5): warning C4295: 'q_15': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(909,5): warning C4295: 'mn_01': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(910,5): warning C4295: 'mn_02': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(911,5): warning C4295: 'mn_03': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(912,5): warning C4295: 'mn_04': la matriz es demasiado pequeña para incluir un carácter nulo final
+C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\tests\test_vector.c(913,5): warning C4295: 'mn_05': la matriz es demasiado pequeña para incluir un carácter nulo final
+EDK_MemoryManager_Windows_d.lib(edk_memory_manager.obj) : warning LNK4099: no se encontró PDB 'EDK_MemoryManager_Windows_d.pdb' con 'EDK_MemoryManager_Windows_d.lib(edk_memory_manager.obj)' o en 'C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\bin\Debug\x64\EDK_MemoryManager_Windows_d.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+  PR02_Vector.vcxproj -> C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\bin\Debug\x64\PR02_Vector_d.exe

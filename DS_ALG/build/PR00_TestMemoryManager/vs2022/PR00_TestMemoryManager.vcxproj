@@ -262,12 +262,17 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\deps\include\EDK_MemoryManager\edk_memory_manager.h" />
     <ClInclude Include="..\..\..\deps\include\EDK_MemoryManager\edk_platform_types.h" />
+    <ClInclude Include="..\..\..\include\adt_circular_dllist.h" />
     <ClInclude Include="..\..\..\include\adt_circular_list.h" />
     <ClInclude Include="..\..\..\include\adt_circular_vector.h" />
+    <ClInclude Include="..\..\..\include\adt_dllist.h" />
     <ClInclude Include="..\..\..\include\adt_list.h" />
     <ClInclude Include="..\..\..\include\adt_memory_node.h" />
-    <ClInclude Include="..\..\..\include\adt_movable_vector.h" />
+    <ClInclude Include="..\..\..\include\adt_mhvector.h" />
+    <ClInclude Include="..\..\..\include\adt_queue.h" />
+    <ClInclude Include="..\..\..\include\adt_stack.h" />
     <ClInclude Include="..\..\..\include\adt_vector.h" />
+    <ClInclude Include="..\..\..\include\algo_quicksort.h" />
     <ClInclude Include="..\..\..\include\common_def.h" />
   </ItemGroup>
   <ItemGroup>

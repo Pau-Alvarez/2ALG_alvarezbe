@@ -1,0 +1,3 @@
+﻿  sorting_main.c
+EDK_MemoryManager_Windows_d.lib(edk_memory_manager.obj) : warning LNK4099: no se encontró PDB 'EDK_MemoryManager_Windows_d.pdb' con 'EDK_MemoryManager_Windows_d.lib(edk_memory_manager.obj)' o en 'C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\bin\Debug\x64\EDK_MemoryManager_Windows_d.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+  PR13_SortingAlgorithms.vcxproj -> C:\Users\Pau\Desktop\DS_ALG-20260526T183545Z-3-001\DS_ALG\bin\Debug\x64\PR13_SortingAlgorithms_d.exe

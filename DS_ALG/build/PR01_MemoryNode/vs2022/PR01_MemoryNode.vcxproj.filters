@@ -27,10 +27,16 @@
     <ClInclude Include="..\..\..\deps\include\EDK_MemoryManager\edk_platform_types.h">
       <Filter>deps\include\EDK_MemoryManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\adt_circular_dllist.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\adt_circular_list.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\adt_circular_vector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\adt_dllist.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\adt_list.h">
@@ -39,10 +45,19 @@
     <ClInclude Include="..\..\..\include\adt_memory_node.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\adt_movable_vector.h">
+    <ClInclude Include="..\..\..\include\adt_mhvector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\adt_queue.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\adt_stack.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\adt_vector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\algo_quicksort.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\common_def.h">
