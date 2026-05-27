@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\build\\",
+  "WorkspaceRootPath": "C:\\Users\\Pau\\Downloads\\alg\\2ALG_alvarezbe\\DS_ALG\\build\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2A188225-1612-AB77-FF7E-4188EB1711E4}|PR13_SortingAlgorithms\\vs2022\\PR13_SortingAlgorithms.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2A188225-1612-AB77-FF7E-4188EB1711E4}|PR13_SortingAlgorithms\\vs2022\\PR13_SortingAlgorithms.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C49F253-1801-34A1-8108-0DFD6DDFCE91}|PR10_Queue\\vs2022\\PR10_Queue.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6528A01C-51E0-E169-BAE7-BAC5A6BE7C5A}|PR09_Stack\\vs2022\\PR09_Stack.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4474EEB6-306D-0D09-599F-F28D45F7EC14}|PR12_Comparative\\vs2022\\PR12_Comparative.vcxproj|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,51 +33,48 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "adt_queue.c",
               "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c",
-              "RelativeDocumentMoniker": "..\\src\\adt_queue.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c",
               "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c",
-              "RelativeToolTip": "..\\src\\adt_queue.c",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_queue.c",
               "ViewState": "AgIAAPYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-05-27T05:25:45.913Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-27T05:25:45.913Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "adt_stack.c",
+              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
+              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
+              "ViewState": "AgIAAEQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-05-27T05:25:00.629Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "adt_stack.c",
-              "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
-              "RelativeDocumentMoniker": "..\\src\\adt_stack.c",
-              "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\adt_stack.c",
-              "RelativeToolTip": "..\\src\\adt_stack.c",
-              "ViewState": "AgIAAEQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-05-27T05:25:00.629Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "algo_quicksort.c",
               "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c",
-              "RelativeDocumentMoniker": "..\\src\\algo_quicksort.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c",
               "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c",
-              "RelativeToolTip": "..\\src\\algo_quicksort.c",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\algo_quicksort.c",
               "ViewState": "AgIAACEAAAAAAAAAAAAAAFgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-05-27T04:56:40.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-27T04:56:40.026Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "comparative.c",
               "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c",
-              "RelativeDocumentMoniker": "..\\src\\comparative.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c",
               "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c",
-              "RelativeToolTip": "..\\src\\comparative.c",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\comparative.c",
               "ViewState": "AgIAAEMBAAAAAAAAAAAtwFIBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-05-27T04:06:11.637Z"
@@ -87,13 +84,11 @@
               "DocumentIndex": 0,
               "Title": "sorting_main.c",
               "DocumentMoniker": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c",
-              "RelativeDocumentMoniker": "..\\src\\sorting_main.c",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c",
               "ToolTip": "C:\\Users\\Pau\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c",
-              "RelativeToolTip": "..\\src\\sorting_main.c",
-              "ViewState": "AgIAAHUAAAAAAAAAAAAAAJIAAAALAAAAAAAAAA==",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Desktop\\DS_ALG-20260526T183545Z-3-001\\DS_ALG\\src\\sorting_main.c",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2026-05-27T04:04:14.127Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-27T04:04:14.127Z"
             }
           ]
         }
